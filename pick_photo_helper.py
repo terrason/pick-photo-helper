@@ -392,6 +392,7 @@ def print_help():
     print(help_text.strip())
 
 
+
 def send_fifo_command(code: str):
     """Write a single-char command code to the FIFO.
 
@@ -405,8 +406,6 @@ def send_fifo_command(code: str):
 
 
 def main():
-    # Parse flags
-
     # Shortcut handler: write command code directly to FIFO, then exit
     if len(sys.argv) >= 3 and sys.argv[1] == "--cmd":
         send_fifo_command(sys.argv[2])
@@ -510,6 +509,7 @@ def main():
     if os.path.exists(CMD_FIFO):
         os.unlink(CMD_FIFO)
     unregister_keybindings()
+
 
 
 if __name__ == "__main__":
