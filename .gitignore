@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# macOS
+.DS_Store
+
+# pick-photo-helper runtime artifacts
+layer*/
+
+# IDE
+.vscode/
+.idea/
