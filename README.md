@@ -83,7 +83,6 @@
 | PyGObject | `python-gobject` | `python3-gobject` | `python3-gi` | AT-SPI Python 绑定 |
 | AT-SPI2 | `at-spi2-core` | `at-spi2-core` | `at-spi2-core` | GNOME 无障碍接口 |
 | libnotify | `libnotify` | `libnotify` | `libnotify` | 桌面通知 |
-| zenity | `zenity` | `zenity` | `zenity` | 可选 — 无终端时的 GUI 错误提示 |
 
 ---
 

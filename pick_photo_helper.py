@@ -392,62 +392,6 @@ def print_help():
     print(help_text.strip())
 
 
-def find_terminal():
-    """Find an available terminal emulator.  Returns (cmd, arg_to_run)."""
-    for term, run_flag in [
-        ("gnome-terminal", "--"),
-        ("kgx", "--"),               # GNOME Console
-        ("konsole", "-e"),
-        ("xfce4-terminal", "-e"),
-        ("lxterminal", "-e"),
-        ("xterm", "-e"),
-    ]:
-        if shutil.which(term):
-            return term, run_flag
-    return None, None
-
-
-def ensure_terminal():
-    """
-    If we are not running inside a terminal (double-click launch),
-    re-launch ourselves in a terminal emulator and exit the original.
-    Returns True if the original process should continue (already in terminal).
-    Returns False after re-launching, so the caller returns immediately.
-    """
-    if sys.stdout.isatty():
-        return True  # already in terminal, continue normally
-
-    script = os.path.abspath(sys.argv[0])
-    term, run_flag = find_terminal()
-    if term is None:
-        # Last resort: no terminal found — show a GUI error and exit
-        subprocess.run(
-            ["zenity", "--error",
-             "--title=挑挑拣拣",
-             "--text=未找到可用的终端模拟器，请在终端中手动运行：\n\npython3 " + script],
-            check=False,
-        )
-        return False
-
-    # Build command: terminal -e python3 <script> --from-desktop
-    if term == "gnome-terminal":
-        subprocess.Popen(
-            [term, "--wait", "--", "python3", script, "--from-desktop"],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
-    elif term == "kgx":
-        subprocess.Popen(
-            [term, "--", "python3", script, "--from-desktop"],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
-    else:
-        subprocess.Popen(
-            [term, run_flag, "python3", script, "--from-desktop"],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
-    return False
-
-
 def send_fifo_command(code: str):
     """Write a single-char command code to the FIFO.
 
@@ -462,7 +406,6 @@ def send_fifo_command(code: str):
 
 def main():
     # Parse flags
-    from_desktop = "--from-desktop" in sys.argv
 
     # Shortcut handler: write command code directly to FIFO, then exit
     if len(sys.argv) >= 3 and sys.argv[1] == "--cmd":
@@ -472,10 +415,6 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
         print_help()
         return
-
-    # Double-click: auto-open in terminal if not in one
-    if not ensure_terminal():
-        return  # parent process exits; child runs in terminal
 
     # Cleanup old FIFO
     if os.path.exists(CMD_FIFO):
@@ -571,13 +510,6 @@ def main():
     if os.path.exists(CMD_FIFO):
         os.unlink(CMD_FIFO)
     unregister_keybindings()
-
-    # When double-click launched, keep terminal open so the user can read output
-    if from_desktop:
-        try:
-            input("\n  按 Enter 关闭窗口...")
-        except EOFError:
-            pass
 
 
 if __name__ == "__main__":

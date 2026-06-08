@@ -14,7 +14,6 @@ depends=(
   'at-spi2-core'
   'libnotify'
 )
-optdepends=('zenity: GUI error dialog when no terminal is available')
 source=('pick_photo_helper.py')
 sha256sums=('SKIP')
 
