@@ -14,9 +14,6 @@ echo "==> Publishing version: ${ver}"
 echo "==> Setting up SSH..."
 mkdir -p ~/.ssh
 
-echo "----------------------------------------"
-echo "${AUR_SSH_PRIVATE_KEY}" | sha256sum
-echo "----------------------------------------"
 echo "${AUR_SSH_PRIVATE_KEY}" > ~/.ssh/aur-key
 cat ~/.ssh/aur-key
 chmod 600 ~/.ssh/aur-key
