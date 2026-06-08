@@ -13,12 +13,12 @@ echo "==> Publishing version: ${ver}"
 # Setup SSH for AUR
 echo "==> Setting up SSH..."
 mkdir -p ~/.ssh
-echo "\${AUR_SSH_PRIVATE_KEY} > ~/.ssh/aur-key"
+
+echo "----------------------------------------"
+echo "${AUR_SSH_PRIVATE_KEY}" | sha256sum
+echo "----------------------------------------"
 echo "${AUR_SSH_PRIVATE_KEY}" > ~/.ssh/aur-key
-echo "cat ~/.ssh/aur-key"
 cat ~/.ssh/aur-key
-echo "cat /home/runner/.ssh/aur-key"
-cat /home/runner/.ssh/aur-key
 chmod 600 ~/.ssh/aur-key
 cat > ~/.ssh/config <<'CONFIG'
 Host aur.archlinux.org
@@ -27,7 +27,9 @@ Host aur.archlinux.org
   User aur
 CONFIG
 ssh-keyscan -t rsa aur.archlinux.org >> ~/.ssh/known_hosts 2>/dev/null
-
+echo "----------------------------------------------------------------"
+sha256sum /home/runner/.ssh/aur-key
+echo "----------------------------------------------------------------"
 # Clone current AUR repo
 echo "==> Cloning AUR repo..."
 git clone "${AUR_REPO}" /tmp/aur-repo
