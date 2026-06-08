@@ -13,7 +13,11 @@ echo "==> Publishing version: ${ver}"
 # Setup SSH for AUR
 echo "==> Setting up SSH..."
 mkdir -p ~/.ssh
+echo "\${AUR_SSH_PRIVATE_KEY} > ~/.ssh/aur-key"
 echo "${AUR_SSH_PRIVATE_KEY}" > ~/.ssh/aur-key
+echo "cat ~/.ssh/aur-key"
+cat ~/.ssh/aur-key
+echo "cat /home/runner/.ssh/aur-key"
 cat /home/runner/.ssh/aur-key
 chmod 600 ~/.ssh/aur-key
 cat > ~/.ssh/config <<'CONFIG'
