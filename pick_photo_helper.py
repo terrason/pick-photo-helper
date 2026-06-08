@@ -366,11 +366,11 @@ def print_help():
   📷 挑挑拣拣 — 照片多轮筛选助手 (Pick Photo Helper)
 {'=' * 60}
 
-  用法:
-    python3 pick_photo_helper.py [-h | --help]
+用法:
+    pick-photo-helper [-h | --help]           # 从 AUR 安装后
+    python3 pick_photo_helper.py [-h | --help] # 手动运行
 
-  启动后在当前目录扫描 .jpg 图片，自动打开 loupe 浏览。
-
+启动后在当前目录扫描图片，自动打开 loupe 浏览。
   快捷键:
     Ctrl+Space    💝 收藏 / 💔 放回
     Ctrl+A        💝 一键全收藏
@@ -379,14 +379,14 @@ def print_help():
     关闭 loupe     ✕ 自动退出程序
 
   工作原理:
-    1. 在当前目录启动，所有 .jpg 列为第 0 轮
-    2. 在 loupe 中浏览图片，按 Ctrl+Space 收藏喜欢的 → 桌面通知
-    3. 按 Ctrl+Down → 收藏的图片复制到 layer1/ 作为第 1 轮
-    4. 继续筛选直到满意，关闭 loupe 即退出
-    5. 每一轮的结果保存在 layer<N>/ 子目录中
+	    1. 在当前目录启动，所有图片列为第 0 轮
+	    2. 在 loupe 中浏览图片，按 Ctrl+Space 收藏喜欢的 → 桌面通知
+	    3. 按 Ctrl+Down → 收藏的图片链接到 layer1/ 作为第 1 轮
+	    4. 继续筛选直到满意，关闭 loupe 即退出
+	    5. 每一轮的结果保存在 layer<N>/ 子目录中
 
-  依赖:
-    loupe (图片查看器)、systemd (scope 进程管理)、AT-SPI (窗口标题读取)
+	  依赖:
+	    loupe (图片查看器)、systemd (scope 进程管理)、AT-SPI (窗口标题读取)
 {'=' * 60}
 """
     print(help_text.strip())

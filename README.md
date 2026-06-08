@@ -56,7 +56,7 @@
 
 ---
 
-## 🚀 安装
+## 🚀 安装并运行
 
 ### AUR（Arch Linux）
 
@@ -64,7 +64,7 @@
 pikaur -S pick-photo-helper
 ```
 
-### 手动运行
+### 手动运行（从源码）
 
 ```bash
 git clone https://github.com/terrason/pick-photo-helper.git
@@ -72,7 +72,18 @@ cd pick-photo-helper
 python3 pick_photo_helper.py
 ```
 
-在包含照片的目录中运行即可。
+### 📂 使用方法
+
+切入包含图片的目录，然后运行：
+
+```bash
+cd /path/to/your/photos
+pick-photo-helper       # AUR 安装后
+# 或
+python3 /path/to/pick_photo_helper.py   # 未安装时
+```
+
+脚本会扫描当前目录中所有支持的图片文件，自动打开 Loupe 开始浏览。
 
 ---
 
