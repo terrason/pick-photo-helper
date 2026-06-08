@@ -90,4 +90,20 @@ python3 pick_photo_helper.py --help
 - Creates symlinks in `layer{N}/` subdirectories.
 - Kills `pick_photo_helper.scope` systemd unit.
 - Creates/removes `/tmp/image_filter_cmd` FIFO.
-- Only scans for `*.jpg` files in `BASE_DIR`.
+- Scans for supported image files in `BASE_DIR` (jpg, jpeg, png, webp, avif, heic, heif, tiff, bmp, gif).
+
+## AUR Auto-Publish
+
+Pushing a `v*` tag triggers `.github/workflows/aur-publish.yml`, which runs
+`.github/workflows/aur-publish.sh` to update the AUR package:
+
+1. Clones `ssh://aur@aur.archlinux.org/pick-photo-helper.git`
+2. Copies `PKGBUILD` + `pick_photo_helper.py` into the clone
+3. Updates `pkgver` from the git tag
+4. Generates `.SRCINFO` by sourcing PKGBUILD in bash
+5. Pushes to AUR
+
+**Prerequisites (one-time):**
+- AUR SSH key registered on aur.archlinux.org and stored as `AUR_SSH_PRIVATE_KEY` GitHub secret.
+- `pick-photo-helper` package must already exist on AUR.
+
